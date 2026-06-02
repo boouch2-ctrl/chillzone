@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chill Zone Store — Portable Misting Fan</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-dark: #042C53;
+    --blue-mid: #185FA5;
+    --blue-light: #B5D4F4;
+    --blue-pale: #E6F1FB;
+    --green-light: #EAF3DE;
+    --green-dark: #3B6D11;
+    --gray-text: #5F5E5A;
+    --gray-light: #F1EFE8;
+    --border: rgba(0,0,0,0.1);
+    --white: #fff;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: #1a1a1a;
+    background: #f7f9fc;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--blue-mid); }
+  nav a { font-size: 14px; color: var(--gray-text); text-decoration: none; }
+  nav a:hover { color: var(--blue-mid); }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 60%, #378ADD 100%);
+    color: white;
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.07) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 16px;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+  }
+  .hero h1 span { color: var(--blue-light); }
+  .hero p {
+    font-size: 18px;
+    opacity: 0.85;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+  }
+  .price-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px; margin-bottom: 2rem;
+  }
+  .price { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 700; color: white; }
+  .old-price { font-size: 22px; color: rgba(255,255,255,0.5); text-decoration: line-through; }
+  .saving-badge {
+    background: #EAF3DE; color: #3B6D11;
+    font-size: 13px; font-weight: 500;
+    padding: 5px 12px; border-radius: 999px;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: white;
+    color: var(--blue-dark);
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 48px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+  .cta-btn.dark {
+    background: var(--blue-dark); color: white;
+    box-shadow: 0 4px 20px rgba(4,44,83,0.3);
+  }
+  .trust-row {
+    margin-top: 1.25rem;
+    font-size: 13px; color: rgba(255,255,255,0.7);
+    display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;
+  }
+  .trust-row span::before { content: '✓ '; }
+
+  /* TAGS */
+  .tag-strip {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    padding: 1.5rem 2rem; background: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+  .tag {
+    background: var(--blue-pale); color: var(--blue-mid);
+    font-size: 13px; padding: 5px 14px;
+    border-radius: 999px; font-weight: 500;
+  }
+
+  /* SECTION */
+  section { padding: 3rem 2rem; max-width: 760px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--blue-dark);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  /* FEATURES */
+  .feat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+  }
+  .feat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    transition: transform 0.15s;
+  }
+  .feat-card:hover { transform: translateY(-3px); }
+  .feat-icon { font-size: 28px; margin-bottom: 10px; }
+  .feat-card strong { display: block; font-weight: 500; font-size: 14px; margin-bottom: 4px; color: var(--blue-dark); }
+  .feat-card span { font-size: 13px; color: var(--gray-text); }
+
+  /* HOW IT WORKS */
+  .steps { display: grid; gap: 16px; }
+  .step {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .step-num {
+    background: var(--blue-dark); color: white;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px;
+    flex-shrink: 0;
+  }
+  .step-text strong { display: block; font-weight: 500; font-size: 15px; margin-bottom: 3px; color: var(--blue-dark); }
+  .step-text span { font-size: 13px; color: var(--gray-text); }
+
+  /* REVIEWS */
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .review-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem;
+  }
+  .stars { color: #EF9F27; font-size: 14px; margin-bottom: 8px; }
+  .review-text { font-size: 14px; color: #333; line-height: 1.6; margin-bottom: 10px; }
+  .reviewer { font-size: 12px; color: var(--gray-text); }
+
+  /* ORDER BOX */
+  .order-box {
+    background: var(--blue-dark);
+    color: white;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    margin: 2rem 0;
+  }
+  .order-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; font-weight: 700;
+    margin-bottom: 0.5rem; letter-spacing: -0.5px;
+  }
+  .order-box p { font-size: 15px; opacity: 0.8; margin-bottom: 1.5rem; }
+  .order-steps {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px; margin-bottom: 1.75rem;
+  }
+  .order-step {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px;
+    font-size: 13px; padding: 5px 16px;
+  }
+  .order-note { font-size: 12px; opacity: 0.6; margin-top: 1rem; }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-weight: 500; font-size: 15px; color: var(--blue-dark); margin-bottom: 5px; }
+  .faq-a { font-size: 14px; color: var(--gray-text); line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    background: var(--blue-dark); color: rgba(255,255,255,0.6);
+    text-align: center; padding: 2rem;
+    font-size: 13px; margin-top: 2rem;
+  }
+  footer a { color: rgba(255,255,255,0.6); }
+
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .price { font-size: 36px; }
+    section { padding: 2rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Chill<span>Zone</span></div>
+  <a href="#order">Order now →</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">☀️ Summer 2026 bestseller</div>
+  <h1>Beat the heat<br><span>anywhere you go</span></h1>
+  <p>The handheld misting fan that's going viral this summer — 3-in-1 cooling for any situation</p>
+  <div class="price-row">
+    <span class="price">$27.99</span>
+    <span class="old-price">$49.99</span>
+    <span class="saving-badge">Save 44%</span>
+  </div>
+  <a href="#order" class="cta-btn">Get yours now</a>
+  <div class="trust-row">
+    <span>Fast shipping</span>
+    <span>Secure PayPal payment</span>
+    <span>30-day guarantee</span>
+  </div>
+</div>
+
+<div class="tag-strip">
+  <span class="tag">USB-C rechargeable</span>
+  <span class="tag">Mist + fan combo</span>
+  <span class="tag">Handheld / neck / desk</span>
+  <span class="tag">100 speed levels</span>
+  <span class="tag">Up to 10hr battery</span>
+  <span class="tag">Quiet operation</span>
+</div>
+
+<section>
+  <p class="section-title">Why everyone's obsessed</p>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon">💨</div>
+      <strong>3-in-1 design</strong>
+      <span>Handheld, neck or desktop fan</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">💧</div>
+      <strong>Ice-cold mist</strong>
+      <span>Instant cooling spray on demand</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⚡</div>
+      <strong>Fast charge</strong>
+      <span>Full in 2 hrs, lasts all day</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🎛️</div>
+      <strong>100 speeds</strong>
+      <span>From whisper-quiet to turbo</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🪶</div>
+      <strong>Ultra-light</strong>
+      <span>Fits in your pocket or bag</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🏖️</div>
+      <strong>Go anywhere</strong>
+      <span>Beach, gym, commute, office</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="section-title">What our customers say</p>
+  <div class="review-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"This thing is a lifesaver at outdoor concerts. The mist feels incredible when it's 95°F out."</p>
+      <span class="reviewer">— Jessica M., verified buyer</span>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"I wear it around my neck on my morning walk. Battery lasts all day. Best summer purchase ever."</p>
+      <span class="reviewer">— Carlos R., verified buyer</span>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★☆</div>
+      <p class="review-text">"Super lightweight and quiet. Love that it doubles as a desk fan. Bought 2 more for my family."</p>
+      <span class="reviewer">— Tanya K., verified buyer</span>
+    </div>
+  </div>
+</section>
+
+<section id="order">
+  <div class="order-box">
+    <h2>Ready to order?</h2>
+    <p>Click below to pay securely via PayPal, then email us your shipping address.</p>
+    <div class="order-steps">
+      <span class="order-step">1. Click to pay</span>
+      <span class="order-step">2. Email your address</span>
+      <span class="order-step">3. We ship to you</span>
+    </div>
+    <!-- REPLACE the href below with your real PayPal.me link e.g. https://paypal.me/YourName/27.99 -->
+    <a href="https://paypal.me/YOURNAME/27.99" class="cta-btn" target="_blank">Pay $27.99 with PayPal</a>
+    <p class="order-note">After payment, send your full name + shipping address to: <strong>YOUR@EMAIL.COM</strong></p>
+  </div>
+</section>
+
+<section>
+  <p class="section-title">Frequently asked questions</p>
+  <div class="faq-item">
+    <p class="faq-q">How long does shipping take?</p>
+    <p class="faq-a">7–14 business days with standard shipping. You'll receive a tracking number by email once dispatched.</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q">Can I get a refund?</p>
+    <p class="faq-a">Yes — we offer a 30-day money-back guarantee if you're not satisfied with your purchase.</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q">How do I use the misting feature?</p>
+    <p class="faq-a">Unscrew the small cap at the base, fill with water (add ice cubes for extra cold!), and press the mist button.</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q">What's in the box?</p>
+    <p class="faq-a">The fan unit, USB-C charging cable, neck lanyard, and a user guide.</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-q">Can I use it while it's charging?</p>
+    <p class="faq-a">Yes! Just plug in via USB-C and keep using it — great for the office or at your desk.</p>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 ChillZone Store &nbsp;|&nbsp; Questions? <a href="mailto:YOUR@EMAIL.COM">YOUR@EMAIL.COM</a></p>
+  <p style="margin-top: 6px; font-size: 11px; opacity: 0.5;">Fast international shipping &nbsp;·&nbsp; Secure PayPal payments &nbsp;·&nbsp; 30-day guarantee</p>
+</footer>
+
+</body>
+</html>
